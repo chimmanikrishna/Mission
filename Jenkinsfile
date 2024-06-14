@@ -94,7 +94,7 @@ pipeline {
             steps{
                 script{
                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                       sh 'kubectl apply -f ds.yaml'
+                       sh 'kubectl apply -f ds.yml'
                   }
                 }
             }
