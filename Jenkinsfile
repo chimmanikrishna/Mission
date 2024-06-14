@@ -66,7 +66,7 @@ pipeline {
             steps {
                 script{
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                         sh "docker build -t 9666109090/mission:latest ."
+                         sh "docker build -t 9666109090/mission1:latest ."
                     }
                     
                 }
@@ -75,7 +75,7 @@ pipeline {
         
         stage('Trivy Scan Image') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html 9666109090/mission:latest"
+                sh "trivy image --format table -o trivy-image-report.html 9666109090/mission1:latest"
             }
         }
         
@@ -83,7 +83,7 @@ pipeline {
             steps {
                 script{
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                         sh "docker push 9666109090/mission:latest"
+                         sh "docker push 9666109090/mission1:latest"
                     }
                     
                 }
@@ -93,7 +93,7 @@ pipeline {
         stage('Deploy to kubernets'){
             steps{
                 script{
-                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubernetes', namespace: '', location: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                        sh 'kubectl apply -f ds.yaml'
                   }
                 }
